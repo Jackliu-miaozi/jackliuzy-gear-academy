@@ -22,7 +22,7 @@ pub struct PebblesInit {
     pub max_pebbles_per_turn: u8,
 }
 
-#[derive(Debug, Default, Clone, Encode, Decode, TypeInfo)]
+#[derive(Debug, Default, Clone, Encode, Decode, TypeInfo, PartialEq, Eq)]
 pub enum DifficultyLevel {
     #[default]
     Easy,
@@ -42,6 +42,12 @@ pub enum PebblesAction {
 pub enum PebblesEvent {
     CounterTurn(u8),
     Won(Player),
+    WrongTurn,
+    //取走的石子数大于剩余石子数
+    NewRound,
+    //新的回合
+    End,
+    //游戏结束
 }
 
 #[derive(Debug, Default, Clone, Encode, Decode, TypeInfo)]
@@ -75,4 +81,5 @@ pub struct GameState {
     pub difficulty: DifficultyLevel,
     pub first_player: Player,
     pub winner: Option<Player>,
+    pub counter_turn: u8,
 }
